@@ -1,174 +1,182 @@
 package com.example.show.todolistv2;
 
-import android.app.AlertDialog;
-import android.content.BroadcastReceiver;
-import android.content.Context;
-import android.content.DialogInterface;
+import android.app.DatePickerDialog;
+
 import android.content.Intent;
-import android.content.IntentFilter;
-import android.graphics.Color;
+import android.icu.util.Calendar;
 import android.os.Bundle;
 
-import android.support.v4.app.FragmentManager;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
+import android.support.annotation.Nullable;
+import android.support.v4.app.DialogFragment;
+
 import android.util.Log;
 
+import android.view.LayoutInflater;
 import android.view.View;
-import android.view.Menu;
-import android.view.MenuItem;
-import android.widget.AdapterView;
-import android.widget.ListView;
-import java.util.ArrayList;
+import android.view.ViewGroup;
 
-public class MainActivity extends AppCompatActivity {
+import android.widget.Button;
+import android.widget.DatePicker;
+import android.widget.EditText;
 
-    ArrayList<Item> items;
-    ListView listItems;
-    int itemID = -1;
-    int previousPosition;
-    AlertDialog.Builder alertDlg;
+import android.widget.Spinner;
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
+public class EditDialogFragment extends DialogFragment {
 
-        IntentFilter filter = new IntentFilter();
-        filter.addAction("SaveItem");
-        getApplicationContext().registerReceiver(mCmdReceiver, filter);
+    EditText editTask;
+    EditText editCalendar;
+    Calendar calendar;
+    EditText editLocation;
+    static int itemID = -1;
+    EditText editDetail;
+    Spinner spinnerPriority;
 
-        listItems = (ListView) findViewById(R.id.lvItems);
-        listTodoResult();
-
-        //choose item and change color
-        listItems.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-
-                if (-1 != previousPosition) {
-                    View view1 = listItems.getChildAt(previousPosition);
-                    view1.setBackgroundColor(Color.WHITE);
-                }
-
-                Item it1 = (Item) parent.getItemAtPosition(position);
-                itemID = it1.getId();
-                view.setBackgroundColor(Color.argb(80, 192, 192, 192));
-                previousPosition = position;
-            }
-        });
-//        show detail info
-        listItems.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
-            @Override
-            public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
-                Item item = (Item) parent.getItemAtPosition(position);
-
-                FragmentManager fm = getSupportFragmentManager();
-                DetailDialogFragment fragment = (DetailDialogFragment) DetailDialogFragment.newInstance("Todo Detail", item);
-                fragment.show(fm, "detail_dialog_fragment");
-
-                return true;
-            }
-        });
-//        del item
-        alertDlg = new AlertDialog.Builder(this);
-        alertDlg.setTitle("Delete a todo");
-        alertDlg.setMessage("Are you sure?");
-        alertDlg.setPositiveButton("OK", new DialogInterface.OnClickListener() {
-
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                TodoItemDB db = TodoItemDB.getsInstance(getApplicationContext());
-                db.delItem(itemID);
-                listTodoResult();
-                dialog.dismiss();
-            }
-        });
-
-        alertDlg.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                dialog.dismiss();;
-            }
-        });
-
+    public EditDialogFragment() {
 
     }
 
+    public static EditDialogFragment newInstance(String title, int id) {
 
+        EditDialogFragment fragment = new EditDialogFragment();
+        itemID = id;;
+        Bundle bundle = new Bundle();
+        bundle.putString("title", title);
+        fragment.setArguments(bundle);
+        return fragment;
+    }
 
+    @Nullable
     @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_main, menu);
-        return true;
+    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+//        return super.onCreateView(inflater, container, savedInstanceState);
+        return inflater.inflate(R.layout.edit_dialog_fragment, container);
     }
 
     @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
+    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
 
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        } else if (id == R.id.action_add) {
-            showEditDialog(-1);
-            return true;
-        } else if (id == R.id.action_edit){
-            showEditDialog(itemID);
-            return true;
-        } else if (id == R.id.action_del) {
-            alertDlg.show();
-            return true;
+        Log.e("EditDialogFragment", "onViewCreated");
+
+        super.onViewCreated(view, savedInstanceState);
+//      init widgets
+        editTask = (EditText) view.findViewById(R.id.editTask);
+        editDetail = (EditText) view.findViewById(R.id.editDetail);
+        editLocation = (EditText) view.findViewById(R.id.editLocation);
+        editCalendar = (EditText) view.findViewById(R.id.editCalendar);
+
+        spinnerPriority = (Spinner) view.findViewById(R.id.spinnerPriority);
+
+        String strTitle = getArguments().getString("title", "Enter Task");
+        getDialog().setTitle(strTitle);
+
+        calendar = Calendar.getInstance();
+        calendar.get(Calendar.DATE);
+        calendar.get(Calendar.MONTH);
+        final int year = calendar.get(Calendar.YEAR);
+        final int month = calendar.get(Calendar.MONTH);
+        final int day = calendar.get(Calendar.DATE);
+        if (-1 != itemID)
+        {
+            queryItemInfo();
         }
 
-        return super.onOptionsItemSelected(item);
+
+        //for open calender
+        editCalendar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                DatePickerDialog d = new DatePickerDialog(getContext(), new DatePickerDialog.OnDateSetListener() {
+                    @Override
+                    public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+                        editCalendar.setText(String.valueOf(year) + "/" + String.valueOf(month) + "/" + String.valueOf(dayOfMonth));
+                    }
+                }, year, month, day);
+
+                d.show();
+            }
+        });
+
+
+        //for save button
+        Button btnSave = (Button) view.findViewById(R.id.btnSave);
+        btnSave.setOnClickListener(new Button.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                //save
+                if (-1 != itemID) {
+                    update();
+                } else
+                    addNew();
+
+                Intent intent = new Intent();
+                intent.setAction("SaveItem");
+
+                getActivity().sendBroadcast(intent);
+                getDialog().dismiss();
+            }
+        });
+
+        //for cancel button
+        Button btnCancel = (Button)view.findViewById(R.id.btnCancel);
+        btnCancel.setOnClickListener(new Button.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                Log.e("Button cancel", "cancel");
+                getDialog().dismiss();
+
+            }
+        });
     }
 
-    private void showEditDialog(int itemID) {
+    private void addNew() {
+        Item item = collectItem();
 
-        FragmentManager fm = getSupportFragmentManager();
-        EditDialogFragment fragment = EditDialogFragment.newInstance("Todo Edit", itemID);
-        fragment.show(fm, "edit_dialog_fragment");
+        TodoItemDB db = TodoItemDB.getsInstance(getDialog().getContext());
+        db.addItem(item);
+    }
+
+    private void update() {
+        Item item = collectItem();
+        item.id = itemID;;
+
+        TodoItemDB db = TodoItemDB.getsInstance(getDialog().getContext());
+        db.updateInfo(item);
+    }
+
+    private void queryItemInfo() {
+
+        TodoItemDB db = TodoItemDB.getsInstance(getDialog().getContext());
+        Item item = db.query(itemID);
+        editTask.setText(item.getTask());
+        editCalendar.setText(item.getDate());
+        editLocation.setText(item.getLocation());
+        editDetail.setText(item.getDetail());
+        spinnerPriority.setSelection(item.getPriority());
 
     }
 
-
-    BroadcastReceiver mCmdReceiver = new BroadcastReceiver() {
-        @Override
-        public void onReceive(Context context, Intent intent) {
-            listTodoResult();
-        }
-    };
+    private Item collectItem() {
+        Item item = new Item();
+        String date = calendar.get(Calendar.DATE) + "/" + calendar.get(Calendar.MONTH) + "/" + calendar.get(Calendar.YEAR);
 
 
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        unregisterReceiver(mCmdReceiver);
+        item.setTask(editTask.getText().toString());
+        item.setDate(date);
+        item.setLocation(editLocation.getText().toString());
+        item.setDetail(editDetail.getText().toString());
+        Spinner spinner = (Spinner) getDialog().findViewById(R.id.spinnerPriority);
+
+        int priority = 0;
+        if (spinner.getSelectedItem().toString().equals("Low"))
+            priority = 2;
+        else if (spinner.getSelectedItem().toString().equals("Mid"))
+            priority = 1;
+        item.setPriority(priority);
+
+        return item;
     }
 
-    public void listTodoResult() {
-        TodoItemDB db = TodoItemDB.getsInstance(this);
-
-        items = db.queryAll();
-
-        Log.e("listTodoResult", "empty?");
-        for (Item it: items) {
-            Log.e("task:", it.getTask());
-            Log.e("date:", it.getDate());
-            Log.e("location:", it.getLocation());
-        }
-
-        ItemAdapter adapter = new ItemAdapter(this, items);
-//        itemAdapter = new ArrayAdapter<Item>(this, items);
-        previousPosition = -1;
-        listItems.setAdapter(adapter);
-    }
 
 }

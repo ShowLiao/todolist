@@ -8,8 +8,7 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.graphics.Color;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
+
 import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -22,7 +21,7 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 import java.util.ArrayList;
 
-public class MainActivity extends AppCompatActivity implements EditDialogFragment.EditDialogFragmentListener{
+public class MainActivity extends AppCompatActivity {
 
     ArrayList<Item> items;
     ListView listItems;
@@ -98,6 +97,8 @@ public class MainActivity extends AppCompatActivity implements EditDialogFragmen
 
     }
 
+
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
@@ -137,10 +138,11 @@ public class MainActivity extends AppCompatActivity implements EditDialogFragmen
 
     }
 
+
     BroadcastReceiver mCmdReceiver = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
-            
+
             listTodoResult();
         }
     };

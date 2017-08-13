@@ -55,18 +55,17 @@ public class EditDialogFragment extends DialogFragment implements TextView.OnEdi
 
     public EditDialogFragment() {
 
-        Log.e("=====Constructor", "EditDialogFragment");
     }
 
     public static EditDialogFragment newInstance(String title, int id) {
 
-        Log.e("EditDialogFragment", "New Instance" + "edit:" + String.valueOf(id));
         EditDialogFragment fragment = new EditDialogFragment();
         itemID = id;;
         Bundle bundle = new Bundle();
         bundle.putString("title", title);
         fragment.setArguments(bundle);
         return fragment;
+
     }
 
     @Nullable
@@ -87,7 +86,7 @@ public class EditDialogFragment extends DialogFragment implements TextView.OnEdi
         editDetail = (EditText) view.findViewById(R.id.editDetail);
         editLocation = (EditText) view.findViewById(R.id.editLocation);
         editCalendar = (EditText) view.findViewById(R.id.editCalendar);
-//        Log.e("date:", String.valueOf(calendar.get(Calendar.DATE)) + "/" + String.valueOf(month) + "/" + String.valueOf(dayOfMonth));
+
         spinnerPriority = (Spinner) view.findViewById(R.id.spinnerPriority);
         editTask.setOnEditorActionListener(this);
 
@@ -183,25 +182,16 @@ public class EditDialogFragment extends DialogFragment implements TextView.OnEdi
     }
 
     private Item collectItem() {
+        
         Item item = new Item();
-//        item.setDate("1/1/2018");
-//        item.setLocation("Alamo Square Playground");
-//        item.setTask("Play");
-
-        Log.d("====" , editTask.getText().toString());
         String date = calendar.get(Calendar.DATE) + "/" + calendar.get(Calendar.MONTH) + "/" + calendar.get(Calendar.YEAR);
-        Log.d("====", date);
-
-
-
-//                }
 
         item.setTask(editTask.getText().toString());
         item.setDate(date);
         item.setLocation(editLocation.getText().toString());
         item.setDetail(editDetail.getText().toString());
         Spinner spinner = (Spinner) getDialog().findViewById(R.id.spinnerPriority);
-        Log.e("Dlg checkitem:", spinner.getSelectedItem().toString());
+
         int priority = 0;
         if (spinner.getSelectedItem().toString().equals("Low"))
             priority = 2;

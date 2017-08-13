@@ -98,8 +98,6 @@ public class MainActivity extends AppCompatActivity implements EditDialogFragmen
 
     }
 
-
-
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
@@ -139,16 +137,10 @@ public class MainActivity extends AppCompatActivity implements EditDialogFragmen
 
     }
 
-    @Override
-    public void onFinishEditDialog(String input) {
-        Log.e("onFinishEditDialog", input);
-    }
-
-
     BroadcastReceiver mCmdReceiver = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
-            Log.e("=====receiver", intent.getAction().toString());
+            
             listTodoResult();
         }
     };
@@ -165,15 +157,8 @@ public class MainActivity extends AppCompatActivity implements EditDialogFragmen
 
         items = db.queryAll();
 
-        Log.e("listTodoResult", "empty?");
-        for (Item it: items) {
-            Log.e("task:", it.getTask());
-            Log.e("date:", it.getDate());
-            Log.e("location:", it.getLocation());
-        }
-
         ItemAdapter adapter = new ItemAdapter(this, items);
-//        itemAdapter = new ArrayAdapter<Item>(this, items);
+
         previousPosition = -1;
         listItems.setAdapter(adapter);
     }

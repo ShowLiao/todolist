@@ -64,7 +64,7 @@ public class TodoItemDB extends SQLiteOpenHelper {
                 DETAIL_COL + " TEXT, " +
                 PRIORITY_COL + " INTEGER NOT NULL)";
 
-        Log.i("==SQL:", CREATE_TABLE);
+        Log.i("SQL:", CREATE_TABLE);
         db.execSQL(CREATE_TABLE);
     }
 
@@ -167,12 +167,7 @@ public class TodoItemDB extends SQLiteOpenHelper {
                     item.setLocation(cursor.getString(3));
                     item.setDetail(cursor.getString(4));
                     item.setPriority(cursor.getInt(5));
-                    Log.d("==id:", String.valueOf(cursor.getInt(0)));
-                    Log.d("==task", cursor.getString(1));
-                    Log.d("date", cursor.getString(2));
-                    Log.d("location", cursor.getString(3));
-                    Log.d("detail", cursor.getString(4));
-
+                   
                     cursor.moveToNext();
                 }
             }
@@ -206,12 +201,7 @@ public class TodoItemDB extends SQLiteOpenHelper {
                     item.setLocation(cursor.getString(3));
                     item.setDetail(cursor.getString(4));
                     item.setPriority(cursor.getInt(5));
-                    Log.d("===id:", String.valueOf(item.getId()));
-                    Log.d("task", item.getTask());
-                    Log.d("date", item.getDate());
-                    Log.d("location", item.getLocation());
-                    Log.d("detail", item.getDetail());
-                    Log.d("setPriority", String.valueOf(item.getPriority()));
+                    
                     list.add(item);
                     cursor.moveToNext();
                 }

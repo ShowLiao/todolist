@@ -5,8 +5,6 @@ TodoList is an android app that allows building a todo list and basic todo items
 
 Submitted by: Show Liao
 
-Time spent: 18 hours spent in total
-
 ## User Stories
 
 The following **required** functionality is completed:

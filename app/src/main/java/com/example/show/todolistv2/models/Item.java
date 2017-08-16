@@ -1,4 +1,4 @@
-package com.example.show.todolistv2;
+package com.example.show.todolistv2.models;
 
 /**
  * Created by show on 8/7/17.

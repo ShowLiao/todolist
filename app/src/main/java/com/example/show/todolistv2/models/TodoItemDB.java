@@ -1,4 +1,4 @@
-package com.example.show.todolistv2;
+package com.example.show.todolistv2.models;
 
 import android.content.ContentValues;
 import android.content.Context;

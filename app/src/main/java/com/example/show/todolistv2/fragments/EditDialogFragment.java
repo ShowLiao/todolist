@@ -1,4 +1,4 @@
-package com.example.show.todolistv2;
+package com.example.show.todolistv2.fragments;
 
 import android.app.DatePickerDialog;
 
@@ -20,6 +20,10 @@ import android.widget.DatePicker;
 import android.widget.EditText;
 
 import android.widget.Spinner;
+
+import com.example.show.todolistv2.models.Item;
+import com.example.show.todolistv2.R;
+import com.example.show.todolistv2.models.TodoItemDB;
 
 public class EditDialogFragment extends DialogFragment {
 
@@ -139,7 +143,7 @@ public class EditDialogFragment extends DialogFragment {
 
     private void update() {
         Item item = collectItem();
-        item.id = itemID;;
+        item.setId(itemID);
 
         TodoItemDB db = TodoItemDB.getsInstance(getDialog().getContext());
         db.updateInfo(item);

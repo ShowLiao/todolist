@@ -1,4 +1,4 @@
-package com.example.show.todolistv2;
+package com.example.show.todolistv2.activities;
 
 import android.app.AlertDialog;
 import android.content.BroadcastReceiver;
@@ -12,13 +12,20 @@ import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.AdapterView;
 import android.widget.ListView;
+
+import com.example.show.todolistv2.models.Item;
+import com.example.show.todolistv2.adapters.ItemAdapter;
+import com.example.show.todolistv2.R;
+import com.example.show.todolistv2.models.TodoItemDB;
+import com.example.show.todolistv2.fragments.DetailDialogFragment;
+import com.example.show.todolistv2.fragments.EditDialogFragment;
+
 import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {

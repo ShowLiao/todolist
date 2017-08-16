@@ -1,15 +1,17 @@
-package com.example.show.todolistv2;
+package com.example.show.todolistv2.adapters;
 
 import android.content.Context;
 import android.graphics.Color;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
+
+import com.example.show.todolistv2.models.Item;
+import com.example.show.todolistv2.R;
 
 import java.util.ArrayList;
 

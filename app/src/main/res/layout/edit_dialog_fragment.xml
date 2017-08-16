@@ -8,14 +8,14 @@
         android:id="@+id/txtID"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="TextView"
+
         android:visibility="invisible" />
 
     <EditText
         android:id="@+id/editTask"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:hint="Task"
+        android:hint="@string/task"
         android:layout_marginLeft="15dp"
         />
 
@@ -23,7 +23,7 @@
         android:id="@+id/editCalendar"
         android:layout_width="1000dp"
         android:layout_height="wrap_content"
-        android:hint="due date"
+        android:hint="@string/due_date"
         android:inputType="textPostalAddress"
         android:layout_marginLeft="15dp" />
 
@@ -31,7 +31,7 @@
         android:id="@+id/editLocation"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:hint="Address"
+        android:hint="@string/location"
         android:inputType="textPostalAddress"
         android:layout_marginLeft="15dp" />
 
@@ -40,7 +40,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:inputType="text"
-        android:hint="Detail"
+        android:hint="@string/detail"
         android:layout_marginLeft="15dp"
         />
 
@@ -48,7 +48,7 @@
         android:id="@+id/spinnerPriority"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:entries="@array/priority"
+        android:entries="@array/arr_priority"
         android:layout_marginLeft="15dp" />
 
     <Button
@@ -56,14 +56,14 @@
         android:layout_width="159dp"
         android:layout_height="wrap_content"
         android:onClick="onSave"
-        android:text="Save" />
+        android:text="@string/save" />
 
     <Button
         android:id="@+id/btnCancel"
         android:layout_width="158dp"
         android:layout_height="wrap_content"
         android:onClick="onCancel"
-        android:text="Cancel" />
+        android:text="@string/cancel" />
 
 
 </LinearLayout>

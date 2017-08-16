@@ -28,6 +28,10 @@ public class MainActivity extends AppCompatActivity {
     int itemID = -1;
     int previousPosition;
     AlertDialog.Builder alertDlg;
+    String ACTION = "SaveItem";
+    String EDIT_DIALOG_FRAGMENT = "edit_dialog_fragment";
+    String DETAIL_DIALOG_FRAGMENT = "detail_dialog_fragment";
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,7 +41,7 @@ public class MainActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
 
         IntentFilter filter = new IntentFilter();
-        filter.addAction("SaveItem");
+        filter.addAction(ACTION);
         getApplicationContext().registerReceiver(mCmdReceiver, filter);
 
         listItems = (ListView) findViewById(R.id.lvItems);
@@ -67,7 +71,7 @@ public class MainActivity extends AppCompatActivity {
 
                 FragmentManager fm = getSupportFragmentManager();
                 DetailDialogFragment fragment = (DetailDialogFragment) DetailDialogFragment.newInstance("Todo Detail", item);
-                fragment.show(fm, "detail_dialog_fragment");
+                fragment.show(fm, DETAIL_DIALOG_FRAGMENT);
 
                 return true;
             }
@@ -90,7 +94,7 @@ public class MainActivity extends AppCompatActivity {
         alertDlg.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                dialog.dismiss();;
+                dialog.dismiss();
             }
         });
 
@@ -134,7 +138,7 @@ public class MainActivity extends AppCompatActivity {
 
         FragmentManager fm = getSupportFragmentManager();
         EditDialogFragment fragment = EditDialogFragment.newInstance("Todo Edit", itemID);
-        fragment.show(fm, "edit_dialog_fragment");
+        fragment.show(fm, EDIT_DIALOG_FRAGMENT);
 
     }
 

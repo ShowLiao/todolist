@@ -4,9 +4,21 @@
     <string name="action_add">Add</string>
     <string name="action_edit">Edit</string>
     <string name="action_del">Delete</string>
-    <string-array name="priority">
+    <string name="task">Task</string>
+    <string name="location">Location</string>
+    <string name="detail">Detail</string>
+    <string name="due_date">Due Date</string>
+    <string name="priority">Priority</string>
+    <string name="cancel">Cancel</string>
+    <string name="save">Save</string>
+    <string name="back">Back</string>
+    <string name="low">Low</string>
+    <string name="medium">Med</string>
+    <string name="high">High</string>
+    <string name="title">Title</string>
+    <string-array name="arr_priority">
         <item>High</item>
-        <item>Mid</item>
+        <item>Med</item>
         <item>Low</item>
     </string-array>
 </resources>

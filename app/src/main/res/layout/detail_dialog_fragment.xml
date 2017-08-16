@@ -10,7 +10,7 @@
         android:id="@+id/txtTask"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Task"
+        android:text="@string/task"
         android:textSize="18sp"
         tools:layout_editor_absoluteY="2dp"
         tools:layout_editor_absoluteX="16dp" />
@@ -19,7 +19,7 @@
         android:id="@+id/txtTime"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Date"
+        android:text="@string/due_date"
         android:textSize="18sp"
         tools:layout_editor_absoluteY="48dp"
         tools:layout_editor_absoluteX="16dp" />
@@ -28,7 +28,7 @@
         android:id="@+id/txtLocation"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Location"
+        android:text="@string/location"
         android:textSize="18sp"
         tools:layout_editor_absoluteY="85dp"
         tools:layout_editor_absoluteX="16dp" />
@@ -37,7 +37,7 @@
         android:id="@+id/txtDetail"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Detail"
+        android:text="@string/detail"
         android:textSize="18sp"
         tools:layout_editor_absoluteY="126dp"
         tools:layout_editor_absoluteX="16dp" />
@@ -47,7 +47,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:onClick="OnBack"
-        android:text="BACK"
+        android:text="@string/back"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintRight_toRightOf="parent" />
 </LinearLayout>

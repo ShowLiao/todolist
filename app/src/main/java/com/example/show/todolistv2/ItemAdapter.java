@@ -53,17 +53,17 @@ public class ItemAdapter extends ArrayAdapter<Item> {
             txtTask.setTextColor(Color.RED);
             txtDate.setTextColor(Color.RED);
             txtPriority.setTextColor(Color.RED);
-            txtPriority.setText("High");
+            txtPriority.setText(R.string.high);
         }else if (1 == item.getPriority()) {
             txtTask.setTextColor(Color.GREEN);
             txtDate.setTextColor(Color.GREEN);
             txtPriority.setTextColor(Color.GREEN);
-            txtPriority.setText("Mid");
+            txtPriority.setText(R.string.medium);
         } else {
-            txtPriority.setText("Low");
             txtTask.setTextColor(Color.BLACK);
             txtDate.setTextColor(Color.BLACK);
             txtPriority.setTextColor(Color.BLACK);
+            txtPriority.setText(R.string.low);
         }
 
         return convertView;

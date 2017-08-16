@@ -169,9 +169,9 @@ public class EditDialogFragment extends DialogFragment {
         Spinner spinner = (Spinner) getDialog().findViewById(R.id.spinnerPriority);
 
         int priority = 0;
-        if (spinner.getSelectedItem().toString().equals("Low"))
+        if (spinner.getSelectedItem().toString().equals(getString(R.string.low)))
             priority = 2;
-        else if (spinner.getSelectedItem().toString().equals("Mid"))
+        else if (spinner.getSelectedItem().toString().equals(getString(R.string.medium)))
             priority = 1;
         item.setPriority(priority);
 

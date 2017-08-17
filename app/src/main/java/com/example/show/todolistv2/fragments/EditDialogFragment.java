@@ -34,6 +34,7 @@ public class EditDialogFragment extends DialogFragment {
     static int itemID = -1;
     EditText editDetail;
     Spinner spinnerPriority;
+    String ACTION = "SaveItem";
 
     public EditDialogFragment() {
 
@@ -67,10 +68,9 @@ public class EditDialogFragment extends DialogFragment {
         editDetail = (EditText) view.findViewById(R.id.editDetail);
         editLocation = (EditText) view.findViewById(R.id.editLocation);
         editCalendar = (EditText) view.findViewById(R.id.editCalendar);
-
         spinnerPriority = (Spinner) view.findViewById(R.id.spinnerPriority);
 
-        String strTitle = getArguments().getString("title", "Enter Task");
+        String strTitle = getArguments().getString(getString(R.string.title), getString(R.string.enter_task));
         getDialog().setTitle(strTitle);
 
         calendar = Calendar.getInstance();
@@ -114,7 +114,7 @@ public class EditDialogFragment extends DialogFragment {
                     addNew();
 
                 Intent intent = new Intent();
-                intent.setAction("SaveItem");
+                intent.setAction(ACTION);
 
                 getActivity().sendBroadcast(intent);
                 getDialog().dismiss();

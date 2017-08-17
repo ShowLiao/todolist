@@ -13,6 +13,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 
+import android.util.Log;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -23,7 +24,6 @@ import com.example.show.todolistv2.models.Item;
 import com.example.show.todolistv2.adapters.ItemAdapter;
 import com.example.show.todolistv2.R;
 import com.example.show.todolistv2.models.TodoItemDB;
-import com.example.show.todolistv2.fragments.DetailDialogFragment;
 import com.example.show.todolistv2.fragments.EditDialogFragment;
 
 import java.util.ArrayList;
@@ -37,8 +37,6 @@ public class MainActivity extends AppCompatActivity {
     AlertDialog.Builder alertDlg;
     String ACTION = "SaveItem";
     String EDIT_DIALOG_FRAGMENT = "edit_dialog_fragment";
-    String DETAIL_DIALOG_FRAGMENT = "detail_dialog_fragment";
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,6 +53,40 @@ public class MainActivity extends AppCompatActivity {
         listTodoResult();
 
         //choose item and change color
+        setSelectedAction();
+
+        //show detail info
+        setupOpenDetail();
+
+        //del item
+        delItem();
+
+    }
+
+    public void delItem() {
+        alertDlg = new AlertDialog.Builder(this);
+        alertDlg.setTitle(getString(R.string.del_a_todo));
+        alertDlg.setMessage(getString(R.string.are_you_sure));
+        alertDlg.setPositiveButton(getString(R.string.ok), new DialogInterface.OnClickListener() {
+
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                TodoItemDB db = TodoItemDB.getsInstance(getApplicationContext());
+                db.delItem(itemID);
+                listTodoResult();
+                dialog.dismiss();
+            }
+        });
+
+        alertDlg.setNegativeButton(getString(R.string.cancel), new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+            }
+        });
+    }
+
+    public void setSelectedAction() {
         listItems.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -70,45 +102,27 @@ public class MainActivity extends AppCompatActivity {
                 previousPosition = position;
             }
         });
-//        show detail info
+    }
+
+    public void setupOpenDetail() {
+
         listItems.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
             public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
-                Item item = (Item) parent.getItemAtPosition(position);
 
-                FragmentManager fm = getSupportFragmentManager();
-                DetailDialogFragment fragment = (DetailDialogFragment) DetailDialogFragment.newInstance("Todo Detail", item);
-                fragment.show(fm, DETAIL_DIALOG_FRAGMENT);
+                Item item = (Item) parent.getItemAtPosition(position);
+                Intent intentDetail = new Intent(getApplicationContext(), MainDetailActivity.class);
+                intentDetail.putExtra(getString(R.string.task), item.getTask());
+                intentDetail.putExtra(getString(R.string.due_date), item.getDate());
+                intentDetail.putExtra(getString(R.string.detail), item.getDetail());
+                intentDetail.putExtra(getString(R.string.location), item.getLocation());
+
+                startActivity(intentDetail);
 
                 return true;
             }
         });
-//        del item
-        alertDlg = new AlertDialog.Builder(this);
-        alertDlg.setTitle("Delete a todo");
-        alertDlg.setMessage("Are you sure?");
-        alertDlg.setPositiveButton("OK", new DialogInterface.OnClickListener() {
-
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                TodoItemDB db = TodoItemDB.getsInstance(getApplicationContext());
-                db.delItem(itemID);
-                listTodoResult();
-                dialog.dismiss();
-            }
-        });
-
-        alertDlg.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                dialog.dismiss();
-            }
-        });
-
-
     }
-
-
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -153,7 +167,6 @@ public class MainActivity extends AppCompatActivity {
     BroadcastReceiver mCmdReceiver = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
-
             listTodoResult();
         }
     };
@@ -166,6 +179,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void listTodoResult() {
+
         TodoItemDB db = TodoItemDB.getsInstance(this);
 
         items = db.queryAll();
@@ -174,6 +188,7 @@ public class MainActivity extends AppCompatActivity {
 
         previousPosition = -1;
         listItems.setAdapter(adapter);
+
     }
 
 }

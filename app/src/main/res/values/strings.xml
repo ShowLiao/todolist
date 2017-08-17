@@ -16,6 +16,11 @@
     <string name="medium">Med</string>
     <string name="high">High</string>
     <string name="title">Title</string>
+    <string name="desc_click_open_map">Click Location to open google map</string>
+    <string name="del_a_todo">Delete a todo</string>
+    <string name="are_you_sure">Are you sure?</string>
+    <string name="ok">OK</string>
+    <string name="enter_task">Enter Task</string>
     <string-array name="arr_priority">
         <item>High</item>
         <item>Med</item>

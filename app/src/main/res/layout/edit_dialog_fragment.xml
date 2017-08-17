@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:layout_height="match_parent" >
 
     <TextView
         android:id="@+id/txtID"
@@ -13,10 +12,11 @@
 
     <EditText
         android:id="@+id/editTask"
-        android:layout_width="wrap_content"
+        android:layout_width="1000dp"
         android:layout_height="wrap_content"
         android:hint="@string/task"
         android:layout_marginLeft="15dp"
+
         />
 
     <EditText
@@ -25,45 +25,65 @@
         android:layout_height="wrap_content"
         android:hint="@string/due_date"
         android:inputType="textPostalAddress"
-        android:layout_marginLeft="15dp" />
+        android:layout_marginLeft="15dp"
+        android:layout_marginTop="15dp"
+        android:layout_below="@+id/editTask"
+        android:layout_alignParentEnd="true" />
 
     <EditText
         android:id="@+id/editLocation"
-        android:layout_width="wrap_content"
+        android:layout_width="1000dp"
         android:layout_height="wrap_content"
         android:hint="@string/location"
         android:inputType="textPostalAddress"
-        android:layout_marginLeft="15dp" />
+        android:layout_marginLeft="15dp"
+        android:layout_marginTop="20dp"
+        android:layout_below="@+id/editCalendar"
+        android:layout_alignParentEnd="true" />
 
     <EditText
         android:id="@+id/editDetail"
-        android:layout_width="wrap_content"
+        android:layout_width="1000dp"
         android:layout_height="wrap_content"
-        android:inputType="text"
-        android:hint="@string/detail"
+
         android:layout_marginLeft="15dp"
-        />
+        android:hint="@string/detail"
+        android:inputType="text"
+        android:textAlignment="viewStart"
+        android:layout_marginTop="18dp"
+        android:layout_below="@+id/spinnerPriority"
+        android:layout_alignParentEnd="true" />
 
     <Spinner
         android:id="@+id/spinnerPriority"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:entries="@array/arr_priority"
-        android:layout_marginLeft="15dp" />
+        android:layout_marginLeft="15dp"
+        android:layout_marginTop="12dp"
+        android:layout_below="@+id/editLocation"
+        android:layout_alignParentEnd="true" />
 
     <Button
         android:id="@+id/btnSave"
-        android:layout_width="159dp"
+        android:layout_width="130dp"
         android:layout_height="wrap_content"
         android:onClick="onSave"
-        android:text="@string/save" />
+        android:text="@string/save"
+        android:layout_marginEnd="11dp"
+        android:layout_alignBaseline="@+id/btnCancel"
+        android:layout_alignBottom="@+id/btnCancel"
+        android:layout_alignParentEnd="true" />
 
     <Button
         android:id="@+id/btnCancel"
-        android:layout_width="158dp"
+        android:layout_width="130dp"
         android:layout_height="wrap_content"
         android:onClick="onCancel"
-        android:text="@string/cancel" />
+        android:text="@string/cancel"
+        android:layout_below="@+id/editDetail"
+        android:layout_alignStart="@+id/editDetail"
+        android:layout_marginTop="28dp" />
 
 
-</LinearLayout>
+</RelativeLayout>

@@ -57,9 +57,9 @@ public class ItemAdapter extends ArrayAdapter<Item> {
             txtPriority.setTextColor(Color.RED);
             txtPriority.setText(R.string.high);
         }else if (1 == item.getPriority()) {
-            txtTask.setTextColor(Color.GREEN);
-            txtDate.setTextColor(Color.GREEN);
-            txtPriority.setTextColor(Color.GREEN);
+            txtTask.setTextColor(Color.BLUE);
+            txtDate.setTextColor(Color.BLUE);
+            txtPriority.setTextColor(Color.BLUE);
             txtPriority.setText(R.string.medium);
         } else {
             txtTask.setTextColor(Color.BLACK);

@@ -19,6 +19,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.example.show.todolistv2.models.Item;
 import com.example.show.todolistv2.adapters.ItemAdapter;
@@ -145,10 +146,16 @@ public class MainActivity extends AppCompatActivity {
             showEditDialog(-1);
             return true;
         } else if (id == R.id.action_edit){
-            showEditDialog(itemID);
+            if (-1 == itemID)
+                Toast.makeText(getApplicationContext(), getString(R.string.please_select_an_item), Toast.LENGTH_SHORT).show();
+            else
+                showEditDialog(itemID);
             return true;
         } else if (id == R.id.action_del) {
-            alertDlg.show();
+            if (-1 == itemID)
+                Toast.makeText(getApplicationContext(), getString(R.string.please_select_an_item), Toast.LENGTH_SHORT).show();
+            else
+                alertDlg.show();
             return true;
         }
 
@@ -187,6 +194,7 @@ public class MainActivity extends AppCompatActivity {
         ItemAdapter adapter = new ItemAdapter(this, items);
 
         previousPosition = -1;
+        itemID = -1;
         listItems.setAdapter(adapter);
 
     }

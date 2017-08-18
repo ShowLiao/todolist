@@ -21,6 +21,7 @@
     <string name="are_you_sure">Are you sure?</string>
     <string name="ok">OK</string>
     <string name="enter_task">Enter Task</string>
+    <string name="please_select_an_item">Please select an item.</string>
     <string-array name="arr_priority">
         <item>High</item>
         <item>Med</item>

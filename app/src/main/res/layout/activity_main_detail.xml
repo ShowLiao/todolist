@@ -12,6 +12,12 @@
         android:layout_height="wrap_content"
         android:onClick="OnBack"
         android:text="@string/back"
+        android:textColor="@color/colorWrite"
+        android:background="@drawable/cus_btn_selector_bg"
+        android:shadowColor="@color/colorGray"
+        android:shadowDx="0"
+        android:shadowDy="0"
+        android:shadowRadius="5"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintRight_toRightOf="parent" />
 

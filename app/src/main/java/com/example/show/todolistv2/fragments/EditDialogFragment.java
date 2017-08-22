@@ -3,6 +3,7 @@ package com.example.show.todolistv2.fragments;
 import android.app.DatePickerDialog;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.icu.util.Calendar;
 import android.os.Bundle;
 
@@ -20,6 +21,7 @@ import android.widget.DatePicker;
 import android.widget.EditText;
 
 import android.widget.Spinner;
+import android.widget.TextView;
 
 import com.example.show.todolistv2.models.Item;
 import com.example.show.todolistv2.R;
@@ -28,7 +30,7 @@ import com.example.show.todolistv2.models.TodoItemDB;
 public class EditDialogFragment extends DialogFragment {
 
     EditText editTask;
-    EditText editCalendar;
+    TextView txtCalendar;
     Calendar calendar;
     EditText editLocation;
     static int itemID = -1;
@@ -63,11 +65,11 @@ public class EditDialogFragment extends DialogFragment {
         Log.e("EditDialogFragment", "onViewCreated");
 
         super.onViewCreated(view, savedInstanceState);
-//      init widgets
+        //init widgets
         editTask = (EditText) view.findViewById(R.id.editTask);
         editDetail = (EditText) view.findViewById(R.id.editDetail);
         editLocation = (EditText) view.findViewById(R.id.editLocation);
-        editCalendar = (EditText) view.findViewById(R.id.editCalendar);
+        txtCalendar = (TextView) view.findViewById(R.id.txtCalendar);
         spinnerPriority = (Spinner) view.findViewById(R.id.spinnerPriority);
 
         String strTitle = getArguments().getString(getString(R.string.title), getString(R.string.enter_task));
@@ -76,6 +78,7 @@ public class EditDialogFragment extends DialogFragment {
         calendar = Calendar.getInstance();
         calendar.get(Calendar.DATE);
         calendar.get(Calendar.MONTH);
+
         final int year = calendar.get(Calendar.YEAR);
         final int month = calendar.get(Calendar.MONTH);
         final int day = calendar.get(Calendar.DATE);
@@ -86,13 +89,14 @@ public class EditDialogFragment extends DialogFragment {
 
 
         //for open calender
-        editCalendar.setOnClickListener(new View.OnClickListener() {
+        txtCalendar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                DatePickerDialog d = new DatePickerDialog(getContext(), new DatePickerDialog.OnDateSetListener() {
+                DatePickerDialog d = new DatePickerDialog(getContext(), R.style.DatePickDialog, new DatePickerDialog.OnDateSetListener() {
                     @Override
                     public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
-                        editCalendar.setText(String.valueOf(year) + "/" + String.valueOf(month) + "/" + String.valueOf(dayOfMonth));
+                        view.setBackgroundColor(Color.BLUE);
+                        txtCalendar.setText(String.valueOf(year) + "/" + String.valueOf(month) + "/" + String.valueOf(dayOfMonth));
                     }
                 }, year, month, day);
 
@@ -154,7 +158,7 @@ public class EditDialogFragment extends DialogFragment {
         TodoItemDB db = TodoItemDB.getsInstance(getDialog().getContext());
         Item item = db.query(itemID);
         editTask.setText(item.getTask());
-        editCalendar.setText(item.getDate());
+        txtCalendar.setText(item.getDate());
         editLocation.setText(item.getLocation());
         editDetail.setText(item.getDetail());
         spinnerPriority.setSelection(item.getPriority());

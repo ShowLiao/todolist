@@ -20,7 +20,7 @@ The following **optional** features are implemented:
 * [x] Add support for completion due dates for todo items (and display within listview item)
 * [x] Use a [DialogFragment](http://guides.codepath.com/android/Using-DialogFragment) instead of new Activity for editing items
 * [x] Add support for selecting the priority of each todo item (and display in listview item)
-* [x] Tweak the style improving the UI / UX, play with colors, images or backgrounds (I added colors for priority)
+* [x] Tweak the style improving the UI / UX, play with colors, images or backgrounds
 
 The following **additional** features are implemented:
 Added Google Map integration when tapping on location of the todo item.
@@ -33,14 +33,16 @@ Improve UI and user experience
 
 Here's a walkthrough of implemented user stories:
 1.Add a todo item
-2.Updating a todo item
-3.Deleting an item
-3.Select a todo item and long click to open a detail dialog
-4.Tap location to open Google Map with location
+2.without select an item and click menu to update will show toast to notify user 
+3.Updating the todo item
+4.without select an item and click menu to delete will show toast to notify user
+5.Deleting the item
+6.Select a todo item and long click to open a detail activity
+7.Tap location to open Google Map with location
 
-http://imgur.com/5zA5PTO
+http://i.imgur.com/SFyafj6.gif
 
-<img src='http://i.imgur.com/link/to/your/gif/file.gif' title='Video Walkthrough' width='' alt='Video Walkthrough' />
+<img src='http://i.imgur.com/SFyafj6.gif' title='Video Walkthrough' width='' alt='Video Walkthrough' />
 
 GIF created with [LiceCap](http://www.cockos.com/licecap/).
 
@@ -63,7 +65,7 @@ ArrayAdapter : I created ItemAdapter extends ArrayAdapter to provide data for Li
 
 ListView uses ItemAdapter to fill it’s rows.  ListView calls getView() to populate itself.  
 
-getView: Get a View that displays the data at the specified position in the data set. I also set colors for each priority is High/Mid/Low.
+getView: Get a View that displays the data at the specified position in the data set. I also set colors for each priority is High/Med/Low.
  
 convertView : The old view can be reused, if possible. If it’s not possible to convert this view to display the correct data, the method can create a new view.
 ].
